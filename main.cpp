@@ -446,6 +446,127 @@ void RemoveGameFromDatabase() {
     cin >> w;
 }
 
+void EditGameInDatabase() {
+
+    int db_length = GetDataBaseLength();
+    std::string lines[db_length];
+
+    bool exist_id = false;
+    int target_id;
+
+    cout << "Digite o ID que deseja modificar: ";
+    cin >> target_id;
+
+    int target_id_line;
+
+    int line_id = 0;
+
+    int id;
+    std::string name;
+    std::string age;
+    std::string platform;
+    std::string desc;
+
+
+    ifstream file;
+    file.open("db.txt");
+
+    // verifica se o id existe;
+    if (file.is_open()) {
+        while ( file >> id >> name >> age >> platform >> desc ) {
+            
+            if (id == target_id) {
+                exist_id = true;
+                target_id_line = line_id;
+            }
+
+            lines[line_id] = to_string(id) +  " " + name + " " + age + " " + platform + " " + desc + "\n";
+            line_id = line_id + 1;
+
+        }
+
+        file.close();
+    }
+
+    if (exist_id) {
+
+        std::string new_name;
+        std::string new_year;
+        std::string new_platform;
+        std::string new_desc;
+
+        // formulário
+        cout << "Editar nome do jogo: ";
+        cin >> new_name;
+
+        cout << "Editar data de lancamento: ";
+        cin >> new_year;
+
+        cout << "Editar plataforma: ";
+        cin >> new_platform;
+
+        cout << "Editar descricao: ";
+        cin >> new_desc;
+
+        ofstream arq;
+        arq.open("db.txt");
+
+        int index = 0;
+
+        if (arq.is_open()) {
+
+            while ( index < db_length ) {
+
+                if (index == target_id_line) {
+                    arq << target_id << " " << new_name << " " << new_year << " " << new_platform << " " << new_desc << "\n";
+                } else {
+                    arq << lines[index];
+                }
+                
+                index = index + 1;
+            }
+
+            arq.close();
+        }
+
+        std::string action;
+
+        while (true) {
+            cout<<"\n \n";
+            cout<<"Digite VOLTAR ou EDITAR \n";
+            cin>>action;
+
+            if (action == "BUSCEDITARAR") {
+                ClearScreen();
+                EditGameInDatabase();
+                break;
+            }
+
+            if (action == "VOLTAR") {
+                ClearScreen();
+                RenderHomePage();
+            }
+        }
+
+    } else {
+        cout << "Este ID nao existe! \n";
+
+        std::string action;
+
+        while (true) {
+            cout<<"\n \n";
+            cout<<"Digite VOLTAR \n";
+            cin>>action;
+
+            if (action == "VOLTAR") {
+                ClearScreen();
+                RenderHomePage();
+            }
+        }
+    }
+
+}
+
 void RenderHomePage() {
     ClearScreen();
 
@@ -473,6 +594,7 @@ void RenderHomePage() {
     cout<< "5 - Procurar Cadastro(s) por plataforma \n";
     cout<< "6 - Cadastrar um jogo no banco de dados \n";
     cout<< "7 - Remover um jogo no banco de dados \n";
+    cout<< "8 - Editar um jogo no banco de dados \n";
 
     cin>>option;
 
@@ -509,6 +631,11 @@ void RenderHomePage() {
     if (option == 7) {
         ClearScreen();
         RemoveGameFromDatabase();
+    }
+
+    if (option == 8) {
+        ClearScreen();
+        EditGameInDatabase();
     }
 
     
