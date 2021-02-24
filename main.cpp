@@ -5,11 +5,8 @@
 using namespace std;
 
 // functions declaration //
-void ClearScreen();
-void showDataBase();
-void SearchRegisterFromId();
 void RenderHomePage();
-void SearchRegisterFromGameName();
+
 
 void ClearScreen() {
     cout << string( 100, '\n' );
@@ -65,7 +62,8 @@ void SearchRegisterFromId() {
     std::string desc;
     
     std::string line_;
-    ifstream file("db.txt");
+    ifstream file;
+    file.open("db.txt");
 
     cout << "Digite o ID do jogo: ";
     cin >> target_id;
@@ -123,7 +121,9 @@ void SearchRegisterFromGameName() {
     std::string desc;
     
     std::string line_;
-    ifstream file("db.txt");
+    ifstream file;
+
+    file.open("db.txt");
 
     cout << "Digite o nome do jogo: ";
     cin >> target_name;
@@ -324,11 +324,11 @@ void RegisterGameInDatabase() {
 
     cout << "\n \n";
 
-    cout << "Digite o ano de lancamento do jogo: ";
-    cin >> age;
-
     cout << "Digite o nome do jogo: ";
     cin >> name;
+
+    cout << "Digite o ano de lancamento do jogo: ";
+    cin >> age;
 
     cout << "Digite a plataforma do jogo";
     cin >> platform;
@@ -338,7 +338,7 @@ void RegisterGameInDatabase() {
 
     if (file.is_open()) {
 
-        arquivo << id << " " << age << " " << name << " " << platform << " " << desc << "\n";
+        arquivo << id << " " << name << " " << age << " " << platform << " " << desc << "\n";
 
         arquivo.close();
         file.close();
@@ -361,6 +361,89 @@ void RegisterGameInDatabase() {
         ClearScreen();
         RegisterGameInDatabase();
     }
+}
+
+int GetDataBaseLength() {
+    int length = 0;
+
+    std::string line_;
+
+    ifstream file;
+    file.open("db.txt");
+
+    if (file.is_open()) {   
+        
+        while (getline(file, line_)) {
+
+            length = length + 1;
+            
+        }
+
+        file.close();
+    }
+
+    return length;
+}
+
+void RemoveGameFromDatabase() {
+    ClearScreen();
+
+    int db_length = GetDataBaseLength();
+
+    bool exist_id = false;
+
+    int target_id;
+    int line_id = 0;
+
+    int id;
+    std::string name;
+    std::string age;
+    std::string platform;
+    std::string desc;
+
+    cout << "Digite o ID que deseja remover: ";
+    cin >> target_id;
+
+    std::string line_;
+    
+    ifstream file;
+    file.open("db.txt");
+
+    std::string lines[db_length - 1];
+
+    if (file.is_open()) {   
+        
+        while (file >> id >> name >> age >> platform >> desc) {
+            
+            if (id != target_id) {
+                lines[line_id] = to_string(id) +  " " + name + " " + age + " " + platform + " " + desc + "\n";
+                line_id = line_id + 1;
+            }
+            
+        }
+
+        file.close();
+    }
+
+    int index = 0;
+    ofstream arq;
+    arq.open("db.txt");
+
+    if (arq.is_open()) {
+
+        while ( index < db_length - 1 ) {
+            arq << lines[index];
+            cout << lines[index];
+            index = index + 1;
+        }
+
+        arq.close();
+    }
+
+    cout << "Registro com ID " << target_id << " removido com sucesso!";
+
+    int w;
+    cin >> w;
 }
 
 void RenderHomePage() {
@@ -389,6 +472,7 @@ void RenderHomePage() {
     cout<< "4 - Procurar Cadastro(s) por ano de lancamento \n";
     cout<< "5 - Procurar Cadastro(s) por plataforma \n";
     cout<< "6 - Cadastrar um jogo no banco de dados \n";
+    cout<< "7 - Remover um jogo no banco de dados \n";
 
     cin>>option;
 
@@ -420,6 +504,11 @@ void RenderHomePage() {
     if (option == 6) {
         ClearScreen();
         RegisterGameInDatabase();
+    }
+
+    if (option == 7) {
+        ClearScreen();
+        RemoveGameFromDatabase();
     }
 
     
