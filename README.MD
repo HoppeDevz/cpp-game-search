@@ -2,19 +2,19 @@
 
 <p style="text-align:center;"><img src="https://i.imgur.com/JzEcUSm.png" /></p>
 
- # 👾 Games
+ ### 👾 Games
  - ID
  - Ano de lançamento
  - Nome
  - Plataforma
  - Descrição
 
- # Opções
- - 1 -> Mostrar banco de dados 
- - 2 -> Procurar Cadastro(s) por ID
- - 3 -> Procurar Cadastro(s) por nome
- - 4 -> Procurar Cadastro(s) por ano de lancamento
- - 5 -> Procurar Cadastro(s) por plataforma
- - 6 -> Cadastrar um jogo no banco de dados
- - 7 -> Remover um jogo no banco de dados
- - 8 -> Editar um jogo no banco de dados
+ ### 👉 Opções
+ - 1⃣ -> Mostrar banco de dados 
+ - 2⃣ -> Procurar Cadastro(s) por ID
+ - 3⃣ -> Procurar Cadastro(s) por nome
+ - 4⃣ -> Procurar Cadastro(s) por ano de lancamento
+ - 5⃣ -> Procurar Cadastro(s) por plataforma
+ - 6⃣ -> Cadastrar um jogo no banco de dados
+ - 7⃣ -> Remover um jogo no banco de dados
+ - 8⃣ -> Editar um jogo no banco de dados
