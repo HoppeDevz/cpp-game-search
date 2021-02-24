@@ -1,6 +1,6 @@
 # 🚀 C++ CRUD
 
-<p style="text-align:center;"><img src="https://i.imgur.com/7W71YpB.png" /></p>
+<p style="text-align:center;"><img src="https://i.imgur.com/JzEcUSm.png" /></p>
 
  # 👾 Games
  - ID
@@ -16,3 +16,5 @@
  - 4 -> Procurar Cadastro(s) por ano de lancamento
  - 5 -> Procurar Cadastro(s) por plataforma
  - 6 -> Cadastrar um jogo no banco de dados
+ - 7 -> Remover um jogo no banco de dados
+ - 8 -> Editar um jogo no banco de dados
