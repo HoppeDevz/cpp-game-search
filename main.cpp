@@ -217,7 +217,7 @@ void SearchRegisterFromYear() {
 
         if (action == "BUSCAR") {
             ClearScreen();
-            SearchRegisterFromGameName();
+            SearchRegisterFromYear();
             break;
         }
 
@@ -275,7 +275,7 @@ void SearchRegisterFromPlatform() {
 
         if (action == "BUSCAR") {
             ClearScreen();
-            SearchRegisterFromGameName();
+            SearchRegisterFromPlatform();
             break;
         }
 
@@ -442,8 +442,23 @@ void RemoveGameFromDatabase() {
 
     cout << "Registro com ID " << target_id << " removido com sucesso!";
 
-    int w;
-    cin >> w;
+    std::string action;
+    while (true) {
+        cout<<"\n \n";
+        cout<<"Digite VOLTAR ou DELETAR \n";
+        cin>>action;
+
+        if (action == "BUSCAR") {
+            ClearScreen();
+            RemoveGameFromDatabase();
+            break;
+        }
+
+        if (action == "VOLTAR") {
+            ClearScreen();
+            RenderHomePage();
+        }
+    }
 }
 
 void EditGameInDatabase() {
