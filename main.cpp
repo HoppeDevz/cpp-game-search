@@ -551,7 +551,7 @@ void EditGameInDatabase() {
             cout<<"Digite VOLTAR ou EDITAR \n";
             cin>>action;
 
-            if (action == "BUSCEDITARAR") {
+            if (action == "EDITAR") {
                 ClearScreen();
                 EditGameInDatabase();
                 break;
