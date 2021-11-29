@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -10,6 +11,25 @@ void RenderHomePage();
 
 void ClearScreen() {
     cout << string( 100, '\n' );
+}
+
+std::string toUpperCase(std::string str) {
+
+    std::for_each(str.begin(), str.end(), [](char & c) {
+        c = ::toupper(c);
+    });
+
+    return str;
+}
+
+std:: string toLowerCase(std::string str) {
+
+    std::for_each(str.begin(), str.end(), [](char & c) {
+        c = ::tolower(c);
+    });
+
+
+    return str;
 }
 
 void showDataBase() {
@@ -38,14 +58,21 @@ void showDataBase() {
     std::string action;
 
     while (true) {
+        
         cout<<"\n \n";
         cout<<"Registros Encontrados: " << registers_searched << "\n";
+
         cout<<"Digite VOLTAR: ";
         cin>>action;
 
-        if (action == "VOLTAR") {
+        if (toUpperCase(action) == "VOLTAR") {
             ClearScreen();
             RenderHomePage();
+            break;
+        } else {
+
+            ClearScreen();
+            showDataBase();
             break;
         }
     }
@@ -92,21 +119,28 @@ void SearchRegisterFromId() {
     std::string action;
 
     while (true) {
+
         cout<<"\n \n";
         cout<<"Registros Encontrados: " << registers_searched << "\n";
+
         cout<<"Digite VOLTAR ou BUSCAR \n";
         cin>>action;
 
-        if (action == "BUSCAR") {
+        if ( toUpperCase(action) == "BUSCAR") {
             ClearScreen();
             SearchRegisterFromId();
             break;
         }
 
-        if (action == "VOLTAR") {
+        if ( toUpperCase(action) == "VOLTAR") {
             ClearScreen();
             RenderHomePage();
+            break;
         }
+
+        ClearScreen();
+        SearchRegisterFromId();
+        break;
     }
 }
 
@@ -152,21 +186,28 @@ void SearchRegisterFromGameName() {
     std::string action;
 
     while (true) {
+
         cout<<"\n \n";
         cout<<"Registros Encontrados: " << registers_searched << "\n";
+
         cout<<"Digite VOLTAR ou BUSCAR \n";
         cin>>action;
 
-        if (action == "BUSCAR") {
+        if ( toUpperCase(action) == "BUSCAR") {
             ClearScreen();
             SearchRegisterFromGameName();
             break;
         }
 
-        if (action == "VOLTAR") {
+        if ( toUpperCase(action) == "VOLTAR") {
             ClearScreen();
             RenderHomePage();
+            break;
         }
+
+        ClearScreen();
+        SearchRegisterFromGameName();
+        break;
     }
 }
 
@@ -215,16 +256,21 @@ void SearchRegisterFromYear() {
         cout<<"Digite VOLTAR ou BUSCAR \n";
         cin>>action;
 
-        if (action == "BUSCAR") {
+        if ( toUpperCase(action) == "BUSCAR") {
             ClearScreen();
             SearchRegisterFromYear();
             break;
         }
 
-        if (action == "VOLTAR") {
+        if ( toUpperCase(action) == "VOLTAR") {
             ClearScreen();
             RenderHomePage();
+            break;
         }
+
+        ClearScreen();
+        SearchRegisterFromYear();
+        break;
     }
 }
 
@@ -273,16 +319,21 @@ void SearchRegisterFromPlatform() {
         cout<<"Digite VOLTAR ou BUSCAR \n";
         cin>>action;
 
-        if (action == "BUSCAR") {
+        if ( toUpperCase(action) == "BUSCAR") {
             ClearScreen();
             SearchRegisterFromPlatform();
             break;
         }
 
-        if (action == "VOLTAR") {
+        if ( toUpperCase(action) == "VOLTAR") {
             ClearScreen();
             RenderHomePage();
+            break;
         }
+
+        ClearScreen();
+        SearchRegisterFromPlatform();
+        break;
     }
 }
 
@@ -320,7 +371,7 @@ void RegisterGameInDatabase() {
     std::string age;
     std::string name;
     std::string platform;
-    std::string desc;
+    char desc[64];
 
     cout << "\n \n";
 
@@ -330,11 +381,13 @@ void RegisterGameInDatabase() {
     cout << "Digite o ano de lancamento do jogo: ";
     cin >> age;
 
-    cout << "Digite a plataforma do jogo";
+    cout << "Digite a plataforma do jogo: ";
     cin >> platform;
 
-    cout << "Digite a descrição do jogo: ";
-    cin >> desc;
+    cout << "Digite a descricao do jogo: ";
+
+    cin.ignore();
+    cin.getline(desc, sizeof(desc));
 
     if (file.is_open()) {
 
@@ -344,23 +397,26 @@ void RegisterGameInDatabase() {
         file.close();
     }
 
-    cout<< "\n\n";
-    cout<< "Jogo cadastrado com sucesso! \n";
+    cout << "\n\n";
+    cout << "Jogo cadastrado com sucesso! \n";
 
     std::string action;
-    cout<< "Digite VOLTAR ou CADASTRAR \n";
+    cout << "Digite VOLTAR ou CADASTRAR \n";
 
-    cin>>action;
+    cin >> action;
 
-    if (action == "VOLTAR") {
+    if ( toUpperCase(action) == "VOLTAR") {
         ClearScreen();
         RenderHomePage();
     }
 
-    if (action == "CADASTRAR") {
+    if ( toUpperCase(action) == "CADASTRAR") {
         ClearScreen();
         RegisterGameInDatabase();
     }
+
+    ClearScreen();
+    RegisterGameInDatabase();
 }
 
 int GetDataBaseLength() {
@@ -448,16 +504,21 @@ void RemoveGameFromDatabase() {
         cout<<"Digite VOLTAR ou DELETAR \n";
         cin>>action;
 
-        if (action == "BUSCAR") {
+        if ( toUpperCase(action) == "BUSCAR") {
             ClearScreen();
             RemoveGameFromDatabase();
             break;
         }
 
-        if (action == "VOLTAR") {
+        if ( toUpperCase(action) == "VOLTAR") {
             ClearScreen();
             RenderHomePage();
+            break;
         }
+
+        ClearScreen();
+        RemoveGameFromDatabase();
+        break;
     }
 }
 
@@ -551,16 +612,21 @@ void EditGameInDatabase() {
             cout<<"Digite VOLTAR ou EDITAR \n";
             cin>>action;
 
-            if (action == "EDITAR") {
+            if ( toUpperCase(action) == "EDITAR") {
                 ClearScreen();
                 EditGameInDatabase();
                 break;
             }
 
-            if (action == "VOLTAR") {
+            if ( toUpperCase(action) == "VOLTAR") {
                 ClearScreen();
                 RenderHomePage();
+                break;
             }
+
+            ClearScreen();
+            EditGameInDatabase();
+            break;
         }
 
     } else {
@@ -573,10 +639,15 @@ void EditGameInDatabase() {
             cout<<"Digite VOLTAR \n";
             cin>>action;
 
-            if (action == "VOLTAR") {
+            if ( toUpperCase(action) == "VOLTAR") {
                 ClearScreen();
                 RenderHomePage();
+                break;
             }
+
+            ClearScreen();
+            EditGameInDatabase();
+            break;
         }
     }
 
@@ -587,7 +658,9 @@ void RenderHomePage() {
 
     int option;
 
-    cout << " #####     #    #     # #######     #####  #######    #    ######   #####  #     # \n #     #   # #   ##   ## #          #     # #         # #   #     # #     # #     # \n #        #   #  # # # # #          #       #        #   #  #     # #       #     # \n #  #### #     # #  #  # #####       #####  #####   #     # ######  #       ####### \n #     # ####### #     # #                # #       ####### #   #   #       #     # \n #     # #     # #     # #          #     # #       #     # #    #  #     # #     # \n #####  #     # #     # #######     #####  ####### #     # #     #  #####  #     # \n \n";
+    cout << " ____ ____ ____ ____ _________ ____ ____ \n||G |||A |||M |||E |||       |||D |||B ||\n||__|||__|||__|||__|||_______|||__|||__||\n|/__\\|/__\\|/__\\|/__\\|/_______\\|/__\\|/__\\|\n\n";
+    
+    /*" #####     #    #     # #######     #####  #######    #    ######   #####  #     # \n #     #   # #   ##   ## #          #     # #         # #   #     # #     # #     # \n #        #   #  # # # # #          #       #        #   #  #     # #       #     # \n #  #### #     # #  #  # #####       #####  #####   #     # ######  #       ####### \n #     # ####### #     # #                # #       ####### #   #   #       #     # \n #     # #     # #     # #          #     # #       #     # #    #  #     # #     # \n #####  #     # #     # #######     #####  ####### #     # #     #  #####  #     # \n \n";*/
 
     /*
        █████████    █████████   ██████   ██████ ██████████     █████████  ██████████   █████████   ███████████     █████████  █████   █████ 
